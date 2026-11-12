@@ -1,0 +1,11 @@
+.DS_Store
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+models/
+data/
+outputs/*
+!outputs/.gitkeep
+scripts/outputs/
+scripts/experimental/
+ollama/Modelfile.qwen3-14b*
