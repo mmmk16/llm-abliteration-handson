@@ -11,7 +11,7 @@
 ## 動作環境
 - Appleシリコンを積んだMac。筆者は32GBメモリのM1MacBookProで行いました。4Bのモデルを扱う章はメモリを8GBほど使うため、16GB以上のメモリを推奨します。
 - Python3.14と[uv](https://docs.astral.sh/uv/)。
-- 8章のみ[Ollama](https://ollama.com/)と、GGUF変換のために[llama.cpp](https://github.com/ggml-org/llama.cpp)のソースが必要です。
+- 8章では[Ollama](https://ollama.com/)と、GGUF変換のために[llama.cpp](https://github.com/ggml-org/llama.cpp)のソースを使います。どちらも下の「インストール」で入れます。
 
 ## 実行のしかた
 - コードブロックはそのままターミナルに貼り付けて実行できます。
@@ -21,10 +21,24 @@
 - `HF_HUB_OFFLINE=1` を常に設定している場合は、モデルとデータを取得するときだけ `HF_HUB_OFFLINE=0` を付けてください。
 
 ## インストール
+1章から8章までに必要なものを、ここでまとめて入れます。
+
+リポジトリを取得して環境を作ります。`--group mlx` は、7章で使うMLXも一緒に入れる指定です。
 ```sh
 git clone https://github.com/mmmk16/llm-abliteration-handson.git
 cd llm-abliteration-handson
-uv sync
+uv sync --group mlx
+```
+
+8章で使うOllamaを入れて起動します。公式サイトのアプリを入れて開いても構いません。
+```sh
+brew install ollama
+brew services start ollama
+```
+
+8章で使うllama.cppの変換スクリプトを取得します(ビルドは不要)。
+```sh
+git clone --depth 1 https://github.com/ggml-org/llama.cpp ~/llama.cpp
 ```
 
 動作確認(MPS、transformers、TransformerLens):
@@ -115,10 +129,6 @@ uv run python scripts/06_evaluate.py --model Qwen/Qwen3-4B
 ```
 
 ### 7章 Macに最適化されたMLXを試してみる
-初回のみ:
-```sh
-uv sync --group mlx
-```
 1.7B:
 ```sh
 uv run --group mlx python scripts/07_mlx_ablate.py --layer 19
@@ -129,12 +139,7 @@ uv run --group mlx python scripts/07_mlx_ablate.py --model Qwen/Qwen3-4B --layer
 ```
 
 ### 8章 つくったモデルをOllamaで使いやすくする
-llama.cppの変換スクリプトを使うので、ソースをcloneしておきます(ビルドは不要)。
-```sh
-git clone --depth 1 https://github.com/ggml-org/llama.cpp ~/llama.cpp
-```
-
-5章で作ったモデルと加工前のモデルを、それぞれGGUFに変換してOllamaに登録します。
+5章で作ったモデルと加工前のモデルを、それぞれGGUFに変換してOllamaに登録します。変換には、インストールで取得した `~/llama.cpp` のスクリプトを使います。
 ここではオフライン指定(`HF_HUB_OFFLINE=1`)を付けないでください。
 
 #### 4B

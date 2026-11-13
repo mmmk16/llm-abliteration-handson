@@ -1,4 +1,4 @@
-"""0章 手順 6 の確認: TransformerLens 4.x (TransformerBridge) が MPS で動くか"""
+"""0章 手順 3 の確認: TransformerLens 4.x (TransformerBridge) が MPS で動くか"""
 import sys
 
 import torch

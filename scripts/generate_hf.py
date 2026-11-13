@@ -1,4 +1,4 @@
-"""0章 手順 5 の確認: transformers でモデルを読み込み、生成速度とメモリを測る"""
+"""0章 手順 3 の確認: transformers でモデルを読み込み、生成速度とメモリを測る"""
 import sys
 import time
 
